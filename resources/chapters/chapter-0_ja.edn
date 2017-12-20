@@ -1,0 +1,9 @@
+{:title "ようこそ"
+ :text-file "resources/chapters/chapter-0_ja.md"
+ :exercises [{:question "データベース内の映画タイトルを全て検索します。" 
+              :hints []
+              :inputs [{:type :query
+                        :value [:find ...]
+                        :correct-value [:find ?title 
+                                        :where 
+                                        [_ :movie/title ?title]]}]}]}

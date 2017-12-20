@@ -1,9 +1,14 @@
 (ns learndatalogtoday.views
   (:require [datomic-query-helpers.core :refer [pretty-query-string]]
+            [environ.core :refer [env]]
             [fipp.edn :as fipp]
             [hiccup.element :refer [javascript-tag]]
             [hiccup.page :refer [html5 include-js include-css]]
-            [markdown.core :as md]))
+            [learndatalogtoday.i18n :as i18n]
+            [markdown.core :as md]
+            [taoensso.tempura :as tempura]))
+
+(def tr (partial tempura/tr {:dict i18n/tempura-dictionary} [(keyword (env :pagelang))]))
 
 (def google-analytics-string
   "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -41,10 +46,10 @@
      (row [:div.textcontent text])
      (row (when (> chapter 0)
             [:a {:href (str "/chapter/" (dec chapter))}
-             "<< Previous chapter"])
+             (tr [:previous-chapter "<< Previous chapter"])])
           (when (< chapter 8)
             [:a.pull-right {:href (str "/chapter/" (inc chapter))}
-             "Next chapter >>"]))
+             (tr [:next-chapter "Next chapter >>"])]))
      (row [:div.exercises {:style "margin-top: 14px"} exercises])
      (row (footer))]
     (include-js "/third-party/jquery/jquery-1.10.1.min.js")
@@ -56,8 +61,8 @@
 
 (defn build-input [tab-n input-n input]
   (let [label (condp = (:type input)
-                :query "Query:"
-                :rule "Rules:"
+                :query (tr [:query "Query:"])
+                :rule (tr [:rules  "Rules:"])
                 :value (str "Input #" input-n ":"))
         input-str (condp = (:type input)
                     :query (pretty-query-string (:value input))
@@ -67,7 +72,7 @@
      [:div.row
       [:div.span8 [:p [:small [:strong label]
                        (when (= :query (:type input))
-                         [:span.pull-right "[ " [:a {:href "#" :class (str "show-ans-" tab-n)} "I give up!"] " ]"])]]]]
+                         [:span.pull-right "[ " [:a {:href "#" :class (str "show-ans-" tab-n)} (tr [:give-up "I give up!"])] " ]"])]]]]
      [:div.row
       [:div.span8 [:textarea {:class (str "input-" tab-n)} input-str]]]]))
 
@@ -85,7 +90,7 @@
           [:div.span8
            [:button.btn.btn-block {:id (str "run-query-" tab-n)
                                    :data-tab tab-n}
-            "Run Query"]]]
+            (tr [:run-query "Run Query"])]]]
          [:div.row
           [:div.span8
            [:div.alerts]

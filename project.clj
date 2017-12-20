@@ -10,7 +10,9 @@
                  [hiccup "1.0.5"]
                  [markdown-clj "0.9.89"]
                  [fipp "0.6.6"]
-                 [com.taoensso/timbre "4.7.4"]
+                 [com.taoensso/timbre "4.10.0"]
+                 [com.taoensso/tempura "1.1.2"]
+                 [environ "1.1.0"]
                  ;; cljs
                  [hylla "0.2.0"]
                  [hiccups "0.3.0"]
@@ -22,6 +24,7 @@
   :main learndatalogtoday.handler
   :uberjar-name "learndatalogtoday-standalone.jar"
   :min-lein-version "2.0.0"
+  :jvm-opts ["-Dpagelang=ja"]
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]}}
   :cljsbuild {:builds [{:source-paths ["src/cljs"]
                         :compiler {:output-to "resources/public/app.js"

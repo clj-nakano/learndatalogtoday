@@ -1,5 +1,7 @@
 (ns learndatalogtoday.handler
   (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
+            [clojure.string :as str]
             [compojure.core :refer [routes GET POST]]
             [compojure.handler :as handler]
             [compojure.route :as route]
@@ -7,6 +9,7 @@
                                                 normalize
                                                 pretty-query-string]]
             [datomic.api :as d]
+            [environ.core :refer [env]]
             [fipp.edn :as fipp]
             [hiccup.page :refer [html5]]
             [learndatalogtoday.views :as views]
@@ -17,14 +20,23 @@
 
 (def dev? (boolean (System/getenv "DEVMODE")))
 
-
 (defn edn-response [edn-data]
   {:status 200
    :headers {"Content-Type" "application/edn"}
    :body (pr-str edn-data)})
 
+(defn localized-edn [v]
+  (let [local (-> v
+                  (subs 0 (- (count v) (count ".edn")))
+                  (str (format "_%s.edn" (env :pagelang))))]
+    (if (.exists (io/file local))
+      local
+      v)))
+
 (defn read-file [s]
-  (read-string (slurp s)))
+  (-> (localized-edn s)
+      slurp
+      read-string))
 
 (defn read-chapter-data [chapter]
   (->> chapter
@@ -38,7 +50,6 @@
     (assoc chapter-data
            :html (views/chapter-response (assoc chapter-data
                                                 :chapter chapter)))))
-
 
 (def whitelist '#{< > <= >= not= = tutorial.fns/age .getDate .getMonth
                   movie-year sequels friends avg min max sum count})

@@ -1,0 +1,20 @@
+{:title "基本のクエリ"
+ :text-file "resources/chapters/chapter-1_ja.md"
+ :exercises [{:question "1987年に制作された映画のエンティティIDを見つけなさい。"
+              :hints ["`:movie/year`属性を使う必要があります。" 
+                      "データパターンはこんな感じです。`[?e :movie/title 1987]`"]
+              :inputs [{:type :query
+                        :value [:find ?e :where ...]
+                        :correct-value [:find ?e :where [?e :movie/year 1987]]}]}
+             
+             {:question "データベースにある映画のエンティティID**と**タイトルを見つけなさい。"
+              :inputs [{:type :query
+                        :value [:find ?e ?title :where ...]
+                        :correct-value [:find ?e ?title :where [?e :movie/title ?title]]}]}
+
+             {:question "データベース内の人名を全て見つけなさい。"
+              :inputs [{:type :query
+                        :value [:find]
+                        :correct-value [:find ?name 
+                                        :where 
+                                        [?p :person/name ?name]]}]}]}
