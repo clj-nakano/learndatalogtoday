@@ -1,0 +1,47 @@
+{:text-file "resources/chapters/chapter-7_ja.md"
+ :exercises
+ [{:question "データベース内の映画数を集計せよ。"
+   :inputs
+   [{:type :query
+     :value [:find ... :where ...]
+     :correct-value [:find (count ?m) :where [?m :movie/title]]}]}
+
+  {:question "データベース内で最年長者の誕生日を見つけよ。"
+   :inputs
+   [{:type :query
+     :value [:find ... :where ...]
+     :correct-value [:find (min ?date) :where [_ :person/born ?date]]}]}
+
+  {:question "俳優とレーティングのコレクションを使って、俳優ごとのレーティングの平均値を求めよ。クエリは俳優名と`avg`レーティングを返すこと。"
+   :inputs
+   [{:type :query
+     :value [:find ... :in ... :where ...]
+     :correct-value [:find ?name (avg ?rating)
+                     :in $ [?name ...] [[?title ?rating]]
+                     :where
+                     [?p :person/name ?name]
+                     [?m :movie/cast ?p]
+                     [?m :movie/title ?title]]}
+    {:type :value
+     :value ["Sylvester Stallone" "Arnold Schwarzenegger" "Mel Gibson"]}
+    {:type :value
+     :value [["Die Hard" 8.3] 
+             ["Alien" 8.5]
+             ["Lethal Weapon" 7.6]
+             ["Commando" 6.5]
+             ["Mad Max Beyond Thunderdome" 6.1] 
+             ["Mad Max 2" 7.6]
+             ["Rambo: First Blood Part II" 6.2]
+             ["Braveheart" 8.4]
+             ["Terminator 2: Judgment Day" 8.6] 
+             ["Predator 2" 6.1]
+             ["First Blood" 7.6]
+             ["Aliens" 8.5]
+             ["Terminator 3: Rise of the Machines" 6.4]
+             ["Rambo III" 5.4]
+             ["Mad Max" 7.0]
+             ["The Terminator" 8.1] 
+             ["Lethal Weapon 2" 7.1]
+             ["Predator" 7.8]
+             ["Lethal Weapon 3" 6.6]
+             ["RoboCop" 7.5]]}]}]}

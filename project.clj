@@ -5,7 +5,7 @@
                  [org.clojure/clojurescript "1.9.227"]
                  [compojure "1.5.1"]
                  [ring/ring-jetty-adapter "1.5.0"]
-                 [com.datomic/datomic-free "0.9.5394"]
+                 [com.datomic/datomic-free "0.9.5656" :exclusions [com.google.guava/guava]]
                  [datomic-query-helpers "0.1.1"]
                  [hiccup "1.0.5"]
                  [markdown-clj "0.9.89"]
@@ -19,14 +19,15 @@
                  [domina "1.0.3"]]
   :plugins [[lein-ring "0.9.7"]
             [lein-cljsbuild "1.1.4"]]
-  :source-paths ["src/clj"]
+  :source-paths ["src/clj" "src/cljc"]
   :ring {:handler learndatalogtoday.handler/app}
   :main learndatalogtoday.handler
   :uberjar-name "learndatalogtoday-standalone.jar"
   :min-lein-version "2.0.0"
   :jvm-opts ["-Dpagelang=ja"]
-  :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]}}
-  :cljsbuild {:builds [{:source-paths ["src/cljs"]
+  :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]
+                   :jvm-opts ["-Ddevmode=true"]}}
+  :cljsbuild {:builds [{:source-paths ["src/cljs" "src/cljc"]
                         :compiler {:output-to "resources/public/app.js"
                                    :optimizations :advanced
                                    :externs ["externs.js"]

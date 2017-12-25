@@ -18,7 +18,7 @@
             [tutorial.fns])
   (:import [java.util Date]))
 
-(def dev? (boolean (System/getenv "DEVMODE")))
+(def dev? (boolean (env :devmode)))
 
 (defn edn-response [edn-data]
   {:status 200
@@ -33,7 +33,8 @@
       local
       v)))
 
-(defn read-file [s]
+(defn read-file
+  [s]
   (-> (localized-edn s)
       slurp
       read-string))
@@ -66,7 +67,7 @@
 (def read-chapter-data (if dev? read-chapter-data (memoize read-chapter-data)))
 (def read-chapter (if dev? read-chapter (memoize read-chapter)))
 
-(defn app-routes [db chapters]
+(defn app-routes [db]
   (routes
    (GET "/"
      []
@@ -135,10 +136,9 @@
 (def app
   (let [schema (read-file "resources/db/schema.edn")
         seed-data (read-file "resources/db/data.edn")
-        db (init-db "movies" schema seed-data)
-        chapters (mapv read-chapter (range 9))]
-    (handler/site (app-routes db chapters))))
+        db (init-db "movies" schema seed-data)]
+    (handler/site (-> (app-routes db)))))
 
 (defn -main []
-  (let [port (Integer/parseInt (or (System/getenv "PORT") "8080"))]
+  (let [port (Integer/parseInt (or (env :port) "8080"))]
     (jetty/run-jetty app {:port port :join? false})))

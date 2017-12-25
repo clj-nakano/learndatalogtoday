@@ -5,7 +5,12 @@
             [domina :refer [by-id nodes]]
             [domina.css :refer [sel]]
             [domina.events :refer [listen! prevent-default]]
-            [hiccups.runtime :refer [render-html]]))
+            [hiccups.runtime :refer [render-html]]
+            [learndatalogtoday.i18n :as i18n]
+            [taoensso.tempura :as tempura]))
+
+
+(def tr (partial tempura/tr {:dict i18n/tempura-dictionary} [:ja :en]))
 
 (defn find-clause [q]
   (:find (normalize q)))
@@ -17,7 +22,7 @@
 (defn render-error [msg]
   (render-html
    [:div.alert.alert-error
-    [:strong "Oh snap!"]
+    [:strong (tr [:oh-snap "Oh snap!"])]
     [:p msg]]))
 
 (defn render-fail [msg]
@@ -35,7 +40,7 @@
     (if (= :error (:status result-data))
       (domina/append! alert (render-error (:message result-data)))
       (do (if (= :fail (:status result-data))
-            (domina/append! alert (render-fail "Sorry, these results are not correct"))
+            (domina/append! alert (render-fail (tr [:incorrect-result "Sorry, these results are not correct"])))
             (domina/add-class! (sel ".active .label") "label-success"))
           (domina/append! thead (render-row (find-clause query)))
           (doseq [row (:result result-data)]

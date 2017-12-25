@@ -1,6 +1,6 @@
-# learndatalogtoday
+# Datalogを今日学ぼう！
 
-An interactive Datalog tutorial
+対話形式のDatalogチュートリアルです。[jonase/learndatalogtoday](https://github.com/jonase/learndatalogtoday)からフォークし、i18n/l10n対応を加えて日本語訳をパッケージしたものです。
 
 ## Prerequisites
 

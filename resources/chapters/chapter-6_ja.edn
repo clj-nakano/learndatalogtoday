@@ -1,0 +1,54 @@
+{:text-file "resources/chapters/chapter-6_ja.md"
+ :exercises 
+ [{:question "年齢で人物を検索しなさい。与えられた誕生日と今日を表す日付を使って年齢を算定する`tutorial.fns/age`関数を用いなさい。"
+   :inputs [{:type :query
+             :value [:find ?name
+                     :in $ ?age ?today
+                     :where
+                     ...]
+             :correct-value [:find ?name 
+                             :in $ ?age ?today
+                             :where 
+                             [?p :person/name ?name] 
+                             [?p :person/born ?born] 
+                             [(tutorial.fns/age ?born ?today) ?age]]}
+            {:type :value
+             :value 63}
+            {:type :value
+             :value #inst "2013-08-02"}]}
+  
+  {:question "Bruce Willisより若い人の人名と年齢を検索しなさい。"
+   :inputs [{:type :query
+             :value [:find ?name ?age
+                     :in $ ?today
+                     :where
+                     ...]
+             :correct-value [:find ?name ?age 
+                             :in $ ?today
+                             :where 
+                             [?p :person/name "Bruce Willis"] 
+                             [?p :person/born ?sborn] 
+                             [?p2 :person/name ?name] 
+                             [?p2 :person/born ?born] 
+                             [(< ?sborn ?born)] 
+                             [(tutorial.fns/age ?born ?today) ?age]]}
+            {:type :value
+             :value #inst "2013-08-02"}]}
+
+  {:question "誕生日のパラドックスによると、部屋の中に23人いれば誕生日が同じ人が入る確率が50%になると言われている。誕生日が同じ人を見つけるクエリを書きなさい。`<`述語を名前に使って重複した答えを除きなさい。Javaの`java.util.Date`パッケージに含まれている廃止予定の`.getDate`と`.getMonth`を使ってよいこととする。"
+   :inputs [{:type :query
+             :value [:find ?name-1 ?name-2 
+                     :where 
+                     ...
+                     [(< ?name-1 ?name-2)]]
+             :correct-value [:find ?name-1 ?name-2
+                             :where
+                             [?p1 :person/name ?name-1]
+                             [?p2 :person/name ?name-2]
+                             [?p1 :person/born ?born-1]
+                             [?p2 :person/born ?born-2]
+                             [(.getMonth ?born-1) ?m]
+                             [(.getMonth ?born-2) ?m]
+                             [(.getDate ?born-1) ?d]
+                             [(.getDate ?born-2) ?d]
+                             [(< ?name-1 ?name-2)]]}]}]}

@@ -1,0 +1,66 @@
+{:text-file "resources/chapters/chapter-5_ja.md"
+ :exercises 
+ [{:question "指定した年以前（指定した年を含む）に公開された映画を見つけよ。"
+   :inputs 
+   [{:type :query
+     :value [:find ?title ...]
+     :correct-value [:find ?title 
+                     :in $ ?year 
+                     :where 
+                     [?m :movie/title ?title] 
+                     [?m :movie/year ?y] 
+                     [(<= ?y ?year)]]}
+    {:type :value
+     :value 1979}]}
+
+  {:question "Danny Gloverより年長の**俳優**を見つけよ。"
+   :inputs 
+   [{:type :query
+     :value [:find ?actor ...]
+     :correct-value [:find ?actor
+                     :where 
+                     [?d :person/name "Danny Glover"] 
+                     [?d :person/born ?b1]
+                     [?e :person/born ?b2]
+                     [_ :movie/cast ?e]
+                     [(< ?b2 ?b1)]
+                     [?e :person/name ?actor]]}]}
+  
+  
+
+  {:question "指定した年以降（指定した年を含む）に公開され、`?rating`が指定された値よりも高い映画を見つけよ。"
+   :inputs 
+   [{:type :query
+     :value [:find ?title :in ... :where ...]
+     :correct-value [:find ?title 
+                     :in $ ?year ?rating [[?title ?r]] 
+                     :where 
+                     [(< ?rating ?r)] 
+                     [?m :movie/title ?title] 
+                     [?m :movie/year ?y] 
+                     [(<= ?year ?y)]]}
+    {:type :value
+     :value 1990}
+    {:type :value
+     :value 8.0}
+    {:type :value
+     :value [["Die Hard" 8.3] 
+             ["Alien" 8.5]
+             ["Lethal Weapon" 7.6]
+             ["Commando" 6.5]
+             ["Mad Max Beyond Thunderdome" 6.1] 
+             ["Mad Max 2" 7.6]
+             ["Rambo: First Blood Part II" 6.2]
+             ["Braveheart" 8.4]
+             ["Terminator 2: Judgment Day" 8.6] 
+             ["Predator 2" 6.1]
+             ["First Blood" 7.6]
+             ["Aliens" 8.5]
+             ["Terminator 3: Rise of the Machines" 6.4]
+             ["Rambo III" 5.4]
+             ["Mad Max" 7.0]
+             ["The Terminator" 8.1] 
+             ["Lethal Weapon 2" 7.1]
+             ["Predator" 7.8]
+             ["Lethal Weapon 3" 6.6]
+             ["RoboCop" 7.5]]}]}]}

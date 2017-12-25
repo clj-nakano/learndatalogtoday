@@ -1,5 +1,6 @@
 (ns learndatalogtoday.views
-  (:require [datomic-query-helpers.core :refer [pretty-query-string]]
+  (:require [clojure.java.io :as io]
+            [datomic-query-helpers.core :refer [pretty-query-string]]
             [environ.core :refer [env]]
             [fipp.edn :as fipp]
             [hiccup.element :refer [javascript-tag]]
@@ -8,7 +9,7 @@
             [markdown.core :as md]
             [taoensso.tempura :as tempura]))
 
-(def tr (partial tempura/tr {:dict i18n/tempura-dictionary} [(keyword (env :pagelang))]))
+(def tr (partial tempura/tr {:dict i18n/tempura-dictionary} [(keyword (env :pagelang)) :en]))
 
 (def google-analytics-string
   "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -22,11 +23,13 @@
 (defn footer []
   [:footer.text-center {:style "border-top: 1px solid lightgrey; margin-top: 40px;padding:10px;"}
    [:small
-    [:p [:a {:href "http://www.learndatalogtoday.org"} "www.learndatalogtoday.org"]
-     " &copy; 2013 - 2016 Jonas Enlund"]
-    [:p
+    [:p "英語版 " [:a {:href "http://www.learndatalogtoday.org"} "www.learndatalogtoday.org"]
+     "&copy; 2013 - 2016 Jonas Enlund"]
+    [:p "英語版 | "
      [:a {:href "https://github.com/jonase/learndatalogtoday"} "github"] " | "
-     [:a {:href "http://lispinsummerprojects.org/"} "lispinsummerprojects.org"]]]])
+     [:a {:href "http://lispinsummerprojects.org/"} "lispinsummerprojects.org"]]
+    [:p "日本語版 | "
+     [:a {:href "https://github.com/clj-nakano/learndatalogtoday"} "github"]]]])
 
 (defn row [& content]
   [:div.row
@@ -39,7 +42,7 @@
     (include-css "/third-party/bootstrap/css/bootstrap.css")
     (include-css "/third-party/codemirror-3.15/lib/codemirror.css")
     (include-css "/style.css")
-    [:title "Learn Datalog Today!"]
+    [:title (tr [:learn-datomic-today "Learn Datalog Today!"])]
     [:script google-analytics-string]]
    [:body
     [:div.container
@@ -116,6 +119,14 @@
         chapter (:chapter chapter-data)]
     (html5 (base chapter text exercises ecount))))
 
+(defn localized-toc []
+  (let [l10n-toc (format "resources/toc_%s.md" (env :pagelang))]
+    (if (-> l10n-toc
+            io/file
+            .exists)
+      l10n-toc
+      "resources/toc.md")))
+
 (defn toc []
   (html5
    [:head
@@ -126,7 +137,7 @@
    [:body
     [:div.container
      (row [:div.textcontent
-           (-> "resources/toc.md" slurp md/md-to-html-string)])
+           (-> (localized-toc) slurp md/md-to-html-string)])
      (row (footer))]
     (include-js "/third-party/jquery/jquery-1.10.1.min.js")
     (include-js "/third-party/bootstrap/js/bootstrap.js")]))

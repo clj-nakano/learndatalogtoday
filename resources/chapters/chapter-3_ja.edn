@@ -1,0 +1,76 @@
+{:title "Parameterized Queries"
+ :text-file "resources/chapters/chapter-3_ja.md"
+
+:exercises 
+ [{:question "公開年でタイトルを検索せよ。"
+   :inputs [{:type :query
+             :value [:find ?title :in $ ?year :where ...]
+             :correct-value [:find ?title 
+                             :in $ ?year 
+                             :where 
+                             [?m :movie/year ?year] 
+                             [?m :movie/title ?title]]}
+            {:type :value
+             :value 1988}]}
+  {:question "与えられたタイトルを元に、タイトルと公開年を検索せよ。"
+   :inputs [{:type :query
+             :value [:find ?title ?year :in ... :where ...]
+             :correct-value [:find ?title ?year 
+                             :in $ [?title ...] 
+                             :where 
+                             [?m :movie/title ?title] 
+                             [?m :movie/year ?year]]}
+            {:type :value
+             :value ["Lethal Weapon" "Lethal Weapon 2" "Lethal Weapon 3"]}]}
+
+  {:question "`?actor`と`?director`が一緒に仕事をした映画の`?title`を検索せよ。"
+   :inputs [{:type :query
+             :value [:find ?title 
+                     :in $ ?actor ?director
+                     :where 
+                     ...]
+             :correct-value [:find ?title 
+                             :in $ ?actor ?director
+                             :where 
+                             [?a :person/name ?actor]
+                             [?d :person/name ?director]
+                             [?m :movie/cast ?a]
+                             [?m :movie/director ?d]
+                             [?m :movie/title ?title]]}
+            {:type :value
+             :value "Michael Biehn"}
+            {:type :value
+             :value "James Cameron"}]}
+
+  {:question "与えられた俳優名と映画のレーティングを元に、その俳優がキャストされており、レーティングが一致する映画のタイトルを検索せよ。"
+   :inputs [{:type :query
+             :value [:find ?title ?rating :in ... :where ...]
+             :correct-value [:find ?title ?rating 
+                             :in $ ?name [[?title ?rating]] 
+                             :where 
+                             [?p :person/name ?name] 
+                             [?m :movie/cast ?p] 
+                             [?m :movie/title ?title]]}
+            {:type :value
+             :value "Mel Gibson"}
+            {:type :value
+             :value [["Die Hard" 8.3] 
+                     ["Alien" 8.5]
+                     ["Lethal Weapon" 7.6]
+                     ["Commando" 6.5]
+                     ["Mad Max Beyond Thunderdome" 6.1] 
+                     ["Mad Max 2" 7.6]
+                     ["Rambo: First Blood Part II" 6.2]
+                     ["Braveheart" 8.4]
+                     ["Terminator 2: Judgment Day" 8.6] 
+                     ["Predator 2" 6.1]
+                     ["First Blood" 7.6]
+                     ["Aliens" 8.5]
+                     ["Terminator 3: Rise of the Machines" 6.4]
+                     ["Rambo III" 5.4]
+                     ["Mad Max" 7.0]
+                     ["The Terminator" 8.1] 
+                     ["Lethal Weapon 2" 7.1]
+                     ["Predator" 7.8]
+                     ["Lethal Weapon 3" 6.6]
+                     ["RoboCop" 7.5]]}]}]}

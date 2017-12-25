@@ -1,0 +1,33 @@
+{:title "データパターン"
+ :text-file "resources/chapters/chapter-2_ja.md"
+ :exercises
+ [{:question "1985年に公開された映画のタイトルを検索しなさい。"
+   :inputs [{:type :query
+             :value [:find ?title :where ...]
+             :correct-value [:find ?title 
+                             :where 
+                             [?m :movie/title ?title] 
+                             [?m :movie/year 1985]]}]}
+
+  {:question "\"Alien\"が公開されたのは何年？"
+   :inputs [{:type :query
+             :value [:find ?year :where ...]
+             :correct-value [:find ?year 
+                             :where 
+                             [?m :movie/title "Alien"] 
+                             [?m :movie/year ?year]]}]}
+  
+  {:question "映画\"RoboCop\"の監督は誰？ 映画の監督を見つけるには、`[<movie-eid> :movie/director <person-eid>]`を使う必要があります。"
+   :inputs [{:type :query
+             :value [:find ?name :where ...]
+             :correct-value [:find ?name :where [?m :movie/title "RoboCop"] [?m :movie/director ?d] [?d :person/name ?name]]}]}
+
+  {:question "Arnold Schwarzeneggerの出演作を監督したことのある人を全てあげよ。"
+   :inputs [{:type :query
+             :value [:find ?name :where ...]
+             :correct-value [:find ?name 
+                             :where 
+                             [?p :person/name "Arnold Schwarzenegger"] 
+                             [?m :movie/cast ?p] 
+                             [?m :movie/director ?d] 
+                             [?d :person/name ?name]]}]}]}
