@@ -24,9 +24,9 @@
   [:footer.text-center {:style "border-top: 1px solid lightgrey; margin-top: 40px;padding:10px;"}
    [:small
     [:p "英語版 " [:a {:href "http://www.learndatalogtoday.org"} "www.learndatalogtoday.org"]
-     "&copy; 2013 - 2016 Jonas Enlund"]
+     " &copy; 2013 - 2016 Jonas Enlund"]
     [:p "日本語版 " [:a {:href "https://learn-datalog-today-ja.herokuapp.com/"} "learn-datalog-today-ja.herokuapp.com"]
-     "Kenji Nakamura"]
+     " Kenji Nakamura"]
     [:p "英語版 | "
      [:a {:href "https://github.com/jonase/learndatalogtoday"} "github"] " | "
      [:a {:href "http://lispinsummerprojects.org/"} "lispinsummerprojects.org"]]
@@ -68,7 +68,7 @@
   (let [label (condp = (:type input)
                 :query (tr [:query "Query:"])
                 :rule (tr [:rules  "Rules:"])
-                :value (str "Input #" input-n ":"))
+                :value (str (tr [:input "Input #"]) input-n ":"))
         input-str (condp = (:type input)
                     :query (pretty-query-string (:value input))
                     :rule (with-out-str (fipp/pprint (:value input)))

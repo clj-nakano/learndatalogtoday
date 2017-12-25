@@ -1,7 +1,7 @@
 # 変換関数
 
 **変換関数**はクエリ内で値を変換してその結果をパターン変数に束縛するのに使用できる副作用のない純粋関数またメソッドです。
-たとえば、`:db.type/instant`型の`:person/born`という属性があるとします。与えられた誕生日を使って、大体の年齢を計算するのは簡単です。
+たとえば、`:db.type/instant`型の`:person/born`という属性があるとします。与えられた誕生日を使って、おおよその年齢を計算するのは簡単です。
 
     (defn age [birthday today]
       (quot (- (.getTime today)
@@ -17,7 +17,8 @@
      [?p :person/born ?born]
      [(tutorial.fns/age ?born ?today) ?age]]
 
-変換関数句は`[(<fn> <arg1> <arg2> ...) <result-binding>]`の形をとります。`<result-binding>`は[3章](/chapter/3)でみたのと同じ束縛形式をとることができます。
+変換関数句は`[(<fn> <arg1> <arg2> ...) <result-binding>]`の形をとります。
+`<result-binding>`は[3章](/chapter/3)でみたのと同じ束縛形式をとることができます。
 
 * スカラ: `?age`
 * タプル: `[?foo ?bar ?baz]`

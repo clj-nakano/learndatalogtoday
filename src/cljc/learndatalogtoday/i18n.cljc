@@ -11,4 +11,5 @@
     :rules "ルール:"
     :oh-snap "エラー！"
     :incorrect-result "クエリ結果が正しくありません。"
-    :learn-datomic-today "Datomicを今日学ぼう！"}})
+    :learn-datomic-today "Datomicを今日学ぼう！"
+    :input "入力値"}})

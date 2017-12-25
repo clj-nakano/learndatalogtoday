@@ -1,6 +1,6 @@
 # Datalogを今日学ぼう！
 
-対話形式のDatalogチュートリアルです。[jonase/learndatalogtoday](https://github.com/jonase/learndatalogtoday)からフォークし、i18n/l10n対応を加えてJJonas Enlund氏から許諾を受けた上で日本語訳をパッケージしたものです。
+対話形式のDatalogチュートリアルです。[jonase/learndatalogtoday](https://github.com/jonase/learndatalogtoday)からフォークし、i18n/l10n対応を加えてJonas Enlund氏から許諾を受けた上で日本語訳をパッケージしたものです。
 
 英語版の内容は全て翻訳されていますが、将来的には独自に改変、追加を行う予定です。また改変の英語版へのフィードバック、あるいは英語版の更新の反映も保証するものではありませんので、将来的には内容が派生し、日本語版独自のものになりうることをご了承ください。
 
