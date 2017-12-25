@@ -1,16 +1,16 @@
 {:text-file "resources/chapters/chapter-8_ja.md"
  :exercises 
- [{:question "Write a rule `[movie-year ?title ?year]` where `?title` is the title of some movie and `?year` is that movies release year."
+ [{:question "ルール`(movie-year ?title ?year)`を記述しなさい。`?title`は映画のタイトルで、`?year`は映画が公開された年である。"
    :inputs
    [{:type :query
-     :value [:find ?title :in $ % :where [movie-year ?title 1991]]}
+     :value [:find ?title :in $ % :where (movie-year ?title 1991)]}
     {:type :rule
      :value [[(movie-year ?title ?year) ...]]
      :correct-value [[(movie-year ?title ?year)
                       [?m :movie/title ?title]
                       [?m :movie/year ?year]]]}]}
   
-  {:question "Two people are friends if they have worked together in a movie. Write a rule `[friends ?p1 ?p2]` where `p1` and `p2` are person entities. Try with a few different `?name` inputs to make sure you got it right. There might be some edge cases here."
+  {:question "ある映画で俳優同士、あるいは監督と俳優として一緒に働いたことのある2人は友達であるとする。ルール`(friends ?p1 ?p2)`を記述しなさい。`p1`と`p2`はpersonエンティティを表します。例外的な振る舞いがあるかもしれないので、入力値を、例えば\"Mel Gibson\"に変えて試してみなさい。"
    :inputs
    [{:type :query
      :value [:find ?friend
@@ -28,17 +28,18 @@
                       [(not= ?p1 ?p2)]]
                      [(friends ?p1 ?p2)
                       [?m :movie/cast ?p1]
-                      [?m :movie/director ?p2]]
+                      [?m :movie/director ?p2]
+                      [(not= ?p1 ?p2)]]
                      [(friends ?p1 ?p2)
                       (friends ?p2 ?p1)]]}
     {:type :value
      :value "Sigourney Weaver"}]}
 
-  {:question "Write a rule `[sequels ?m1 ?m2]` where `?m1` and `?m2` are movie entities. You'll need to use the attribute `:movie/sequel`. To implement this rule correctly you can think of the problem like this: A movie `?m2` is a sequel of `?m1` if either 
-* `?m2` is the \"direct\" sequel of `m1` **or** 
-* `?m2` is the sequel of some movie `?m` **and** that movie `?m` is the sequel to `?m1`.
+  {:question "ルール`(sequels ?m1 ?m2)`を記述しなさい。(sequelは「続編」の意味）`?m1`と`?m2`はmovieエンティティである。属性`:movie/sequel`を使う必要がある。このルールを正しく実装するためには、下記のようなケースを考える必要がある。ある映画`?m2`が`?m1`の続編であるためには、下記のどちらかの条件を満たす必要がある。
+* `?m2`は`?m1`の直接の続編である。 **または** 
+* `?m2`はある映画`?m`の続編であり、`?m`は`?m1`の続編である。
 
-There are (at least) three different ways to write the above query. Try to find all three solutions."
+上記のクエリを記述するには、少なくとも３通りの方法がある。３通り全てを見つけよ。"
    :inputs
    [{:type :query
      :value [:find ?sequel
