@@ -18,7 +18,8 @@
                  [hiccups "0.3.0"]
                  [domina "1.0.3"]]
   :plugins [[lein-ring "0.9.7"]
-            [lein-cljsbuild "1.1.4"]]
+            [lein-cljsbuild "1.1.4"]
+            [environ/environ.lein "0.3.1"]]
   :source-paths ["src/clj" "src/cljc"]
   :ring {:handler learndatalogtoday.handler/app}
   :main learndatalogtoday.handler
@@ -26,7 +27,10 @@
   :min-lein-version "2.0.0"
   :jvm-opts ["-Dpagelang=ja"]
   :profiles {:dev {:dependencies [[ring-mock "0.1.5"]]
-                   :jvm-opts ["-Ddevmode=true"]}}
+                   :jvm-opts ["-Ddevmode=true"]}
+             :production {:env {:production true
+                                :pagelang "ja"}}
+             }
   :cljsbuild {:builds [{:source-paths ["src/cljs" "src/cljc"]
                         :compiler {:output-to "resources/public/app.js"
                                    :optimizations :advanced
