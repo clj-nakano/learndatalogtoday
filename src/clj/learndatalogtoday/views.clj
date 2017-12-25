@@ -25,6 +25,8 @@
    [:small
     [:p "英語版 " [:a {:href "http://www.learndatalogtoday.org"} "www.learndatalogtoday.org"]
      "&copy; 2013 - 2016 Jonas Enlund"]
+    [:p "日本語版 " [:a {:href "https://learn-datalog-today-ja.herokuapp.com/"} "learn-datalog-today-ja.herokuapp.com"]
+     "Kenji Nakamura"]
     [:p "英語版 | "
      [:a {:href "https://github.com/jonase/learndatalogtoday"} "github"] " | "
      [:a {:href "http://lispinsummerprojects.org/"} "lispinsummerprojects.org"]]

@@ -19,3 +19,5 @@ Datomicは革新的なアーキテクチャを持ち、ユニークな特徴を�
 このチュートリアルは2013年の[Lisp In Summer Projects](http://lispinsummerprojects.org)のために雨降りの日に書かれました。バグやこのチュートリアルを改善するアイデアがあれば、英語版は[jonase/learndatalogtoday](https://github.com/jonase/learndatalogtoday)、日本語版は[clj-nakano/learndatalogtoday](https://github.com/clj-nakano/learndatalogtoday)経由でお知らせください。
 
 注意深く査読していただいた[Robert Stuttaford](https://twitter.com/RobStuttaford)に多謝します。バグやスペルミスを指摘してくださった[方々](https://github.com/jonase/learndatalogtoday/graphs/contributors)にも感謝します。
+
+日本語版の作成にあたって、Jonas Enlund氏から翻訳の許諾と派生的成果物の追加についてご快諾頂きました。この素晴らしいチュートリアルを公開していただいたことに感謝いたします。日本語版の誤訳、バグなどの問合せは[clj-nakano/learndatalogtoday](https://github.com/clj-nakano/learndatalogtoday)まで、Issue, またはPull Requestの形式で送っていただきますようお願い致します。
