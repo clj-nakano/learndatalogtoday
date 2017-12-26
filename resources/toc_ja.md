@@ -1,6 +1,6 @@
 # Datalogを今日学ぼう！
 
-**Datalogを今日学ぼう！**は[Datalog](http://en.wikipedia.org/wiki/Datalog)の方言である[Datomic](http://datomic.com)について教えるために用意された対話形式のチュートリアルです。Datalogは論理プログラミングを源流にもつ宣言的な**データベース問合せ言語**です。Datalogは[SQL](http://en.wikipedia.org/wiki/Sql)と同等の表現力を持ちます。
+**Datalogを今日学ぼう！**は[Datalog](http://en.wikipedia.org/wiki/Datalog)の方言である[Datomic](http://datomic.com)について学ぶために用意された対話形式のチュートリアルです。Datalogは論理プログラミングを源流にもつ宣言的な**データベース問合せ言語**です。Datalogは[SQL](http://en.wikipedia.org/wiki/Sql)と同等の表現力を持ちます。
 
 Datomicは革新的なアーキテクチャを持ち、ユニークな特徴をユーザに提供する新しいデータベースです。Datomicの詳細については[http://datomic.com](http://datomic.com)を御覧ください。アーキテクチャの詳細については[InfoQの記事](https://www.infoq.com/jp/articles/Architecture-Datomic?utm_source=infoq_en&utm_medium=link_on_en_item&utm_campaign=item_in_other_langs)である程度述べられています。
 
