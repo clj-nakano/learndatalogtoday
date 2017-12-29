@@ -134,7 +134,7 @@
    [:head
     (include-css "/third-party/bootstrap/css/bootstrap.css")
     (include-css "/style.css")
-    [:title "Learn Datalog Today!"]
+    [:title (tr [:learn-datomic-today "Learn Datalog Today!"])]
     [:script google-analytics-string]]
    [:body
     [:div.container
