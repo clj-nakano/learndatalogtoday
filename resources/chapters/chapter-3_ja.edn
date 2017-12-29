@@ -42,7 +42,7 @@
             {:type :value
              :value "James Cameron"}]}
 
-  {:question "与えられた俳優名と映画のレーティングを元に、その俳優がキャストされており、レーティングが一致する映画のタイトルを検索せよ。"
+  {:question "与えられた俳優名と映画のレーティングを元に、その俳優がキャストされている映画のタイトルとレーティングを表示せよ。"
    :inputs [{:type :query
              :value [:find ?title ?rating :in ... :where ...]
              :correct-value [:find ?title ?rating 
